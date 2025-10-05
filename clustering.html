@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Clustering Analysis - Student Analytics{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2><i class="fas fa-project-diagram"></i> K-Means Clustering Analysis</h2>
+        <p class="text-muted">Student grouping based on performance patterns and characteristics</p>
+    </div>
+</div>
+
+<div class="row">
+    {% for cluster in clusters %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5><i class="fas fa-users"></i> {{ cluster.name }}</h5>
+            </div>
+            <div class="card-body">
+                <h2 class="text-primary">{{ cluster.count }} <small class="text-muted">students</small></h2>
+                <p><strong>Average CGPA:</strong> {{ cluster.avg_cgpa }}</p>
+
+                <div class="progress mb-2">
+                    <div class="progress-bar" role="progressbar" style="width: {{ cluster.avg_cgpa|mul:25 }}%">
+                        {{ cluster.avg_cgpa }}
+                    </div>
+                </div>
+
+                <ul class="list-unstyled">
+                    {% if cluster.id == 1 %}
+                        <li><i class="fas fa-check text-success"></i> High attendance (>90%)</li>
+                        <li><i class="fas fa-check text-success"></i> Regular study habits</li>
+                        <li><i class="fas fa-check text-success"></i> Active in co-curricular</li>
+                    {% elif cluster.id == 2 %}
+                        <li><i class="fas fa-check text-warning"></i> Moderate attendance (70-90%)</li>
+                        <li><i class="fas fa-check text-warning"></i> Average study time</li>
+                        <li><i class="fas fa-check text-warning"></i> Some co-curricular involvement</li>
+                    {% else %}
+                        <li><i class="fas fa-times text-danger"></i> Low attendance (<70%)</li>
+                        <li><i class="fas fa-times text-danger"></i> Irregular study patterns</li>
+                        <li><i class="fas fa-times text-danger"></i> Limited involvement</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Cluster Visualization</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="clusterScatter"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Cluster Recommendations</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-success">
+                    <h6>High Performers</h6>
+                    <p class="small">Continue mentoring programs</p>
+                </div>
+                <div class="alert alert-warning">
+                    <h6>Average Performers</h6>
+                    <p class="small">Implement targeted interventions</p>
+                </div>
+                <div class="alert alert-danger">
+                    <h6>Low Performers</h6>
+                    <p class="small">Require immediate attention</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Cluster scatter plot
+const ctx = document.getElementById('clusterScatter').getContext('2d');
+new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: 'High Performers',
+            data: [{x: 3.8, y: 95}, {x: 3.7, y: 92}, {x: 3.9, y: 98}],
+            backgroundColor: 'rgba(40, 167, 69, 0.6)'
+        }, {
+            label: 'Average Performers', 
+            data: [{x: 3.2, y: 80}, {x: 3.1, y: 82}, {x: 3.3, y: 78}],
+            backgroundColor: 'rgba(255, 193, 7, 0.6)'
+        }, {
+            label: 'Low Performers',
+            data: [{x: 2.8, y: 65}, {x: 2.7, y: 60}, {x: 2.9, y: 68}],
+            backgroundColor: 'rgba(220, 53, 69, 0.6)'
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'CGPA'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Attendance %'
+                }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

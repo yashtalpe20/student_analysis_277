@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Association Rules - Student Analytics{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2><i class="fas fa-project-diagram"></i> Association Rule Mining</h2>
+        <p class="text-muted">Discover interesting relationships in student performance data using Apriori algorithm</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Discovered Association Rules</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Antecedent (If)</th>
+                                <th>Consequent (Then)</th>
+                                <th>Support</th>
+                                <th>Confidence</th>
+                                <th>Lift</th>
+                                <th>Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rule in rules %}
+                            <tr>
+                                <td><span class="badge bg-primary">{{ rule.antecedent }}</span></td>
+                                <td><span class="badge bg-success">{{ rule.consequent }}</span></td>
+                                <td>{{ rule.support }}</td>
+                                <td>{{ rule.confidence }}</td>
+                                <td>
+                                    {% if rule.lift > 1 %}
+                                        <span class="badge bg-success">{{ rule.lift }}</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">{{ rule.lift }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if rule.confidence > 0.7 %}
+                                        <span class="text-success">Strong relationship</span>
+                                    {% elif rule.confidence > 0.5 %}
+                                        <span class="text-warning">Moderate relationship</span>
+                                    {% else %}
+                                        <span class="text-danger">Weak relationship</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h6>Key Insights</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <i class="fas fa-chart-line text-success"></i>
+                        Students with >80% attendance tend to achieve better grades
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-book text-primary"></i>
+                        Regular study habits correlate with higher CGPA
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-users text-info"></i>
+                        Co-curricular participation improves overall performance
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h6>Metrics Explanation</h6>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Support</dt>
+                    <dd class="col-sm-9">Frequency of pattern in dataset</dd>
+
+                    <dt class="col-sm-3">Confidence</dt>
+                    <dd class="col-sm-9">Probability of consequent given antecedent</dd>
+
+                    <dt class="col-sm-3">Lift</dt>
+                    <dd class="col-sm-9">Measure of rule strength (>1 means positive correlation)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

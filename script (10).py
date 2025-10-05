@@ -1,4 +1,19 @@
-# Student Performance Prediction & Analytics System
+# 9. Complete setup and documentation files
+
+# Requirements.txt
+requirements = '''Django==4.2.7
+pandas==2.1.4
+scikit-learn==1.3.2
+numpy==1.24.3
+openpyxl==3.1.2
+matplotlib==3.8.2
+seaborn==3.8.0
+plotly==5.17.0
+pillow==10.1.0
+'''
+
+# README.md
+readme = '''# Student Performance Prediction & Analytics System
 
 A comprehensive web application implementing Data Mining and Warehouse (DMW) concepts for educational analytics.
 
@@ -41,3 +56,43 @@ A comprehensive web application implementing Data Mining and Warehouse (DMW) con
 - Association Rule Mining
 - Data Warehouse Design
 - OLAP Operations
+'''
+
+# manage.py
+manage_py = '''#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks."""
+import os
+import sys
+
+if __name__ == '__main__':
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'student_analytics.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
+'''
+
+# Save setup files
+with open('requirements.txt', 'w') as f:
+    f.write(requirements)
+
+with open('README.md', 'w') as f:
+    f.write(readme)
+
+with open('manage.py', 'w') as f:
+    f.write(manage_py)
+
+print("Setup and documentation files created successfully!")
+
+# Test the machine learning algorithms on our dataset
+print("\n" + "="*50)
+print("TESTING MACHINE LEARNING ALGORITHMS")
+print("="*50)
+
+exec(open('ml_algorithms.py').read())

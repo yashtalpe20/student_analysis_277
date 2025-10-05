@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Data - Student Analytics{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-upload"></i> Upload Student Dataset</h5>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="dataset" class="form-label">Select Dataset File</label>
+                        <input type="file" class="form-control" id="dataset" name="dataset" accept=".csv,.xlsx" required>
+                        <div class="form-text">Supported formats: CSV, Excel (.xlsx)</div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <h6>Expected Columns:</h6>
+                        <ul class="mb-0">
+                            <li>Student information (Gender, Age, Semester)</li>
+                            <li>Academic data (CGPA, Attendance, Credits)</li>
+                            <li>Behavioral data (Study hours, Social media usage)</li>
+                            <li>Personal data (Family income, Living arrangement)</li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Upload & Process
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Data Processing Pipeline</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-file-import fa-3x text-primary mb-2"></i>
+                        <h6>1. Data Import</h6>
+                        <p class="small">Load CSV/Excel files</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-broom fa-3x text-success mb-2"></i>
+                        <h6>2. Data Cleaning</h6>
+                        <p class="small">Handle missing values</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-cogs fa-3x text-warning mb-2"></i>
+                        <h6>3. Feature Engineering</h6>
+                        <p class="small">Transform variables</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-database fa-3x text-info mb-2"></i>
+                        <h6>4. Store in DW</h6>
+                        <p class="small">Save to database</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

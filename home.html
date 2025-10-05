@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Student Performance Analytics{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron bg-primary text-white p-5 rounded">
+            <h1 class="display-4">Student Performance Prediction & Analytics System</h1>
+            <p class="lead">Advanced Data Mining and Warehouse concepts applied to educational analytics</p>
+            <hr class="my-4">
+            <p>Upload student data, analyze performance patterns, and predict outcomes using machine learning.</p>
+            <a class="btn btn-light btn-lg" href="{% url 'analytics:dashboard' %}" role="button">
+                <i class="fas fa-chart-bar"></i> View Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Total Students</h5>
+                <h2 class="text-primary">{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-brain fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Predictions Made</h5>
+                <h2 class="text-success">{{ total_predictions }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Classification</h5>
+                <p>Decision Tree Algorithm</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-project-diagram fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Clustering</h5>
+                <p>K-means Algorithm</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>DMW Concepts Implemented</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Data Preprocessing</li>
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Classification (Decision Tree)</li>
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Clustering (K-means)</li>
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Association Rule Mining</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Data Warehouse Design</li>
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> OLAP Operations</li>
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Distance Measures</li>
+                    <li class="list-group-item"><i class="fas fa-check text-success"></i> Data Visualization</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
